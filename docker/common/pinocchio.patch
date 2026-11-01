@@ -1,29 +1,29 @@
-# Originally from https://github.com/frankarobotics/libfranka (Apache License 2.0)
+# Originally from https://github.com/frankarobotics/libfranka (Apache License 2.0); rebased onto Pinocchio v4.0.0
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index df25fb61..2c777f5c 100644
+index 5420dbd..becf1f2 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -58,6 +58,10 @@ else()
-   endif()
- endif()
-
+@@ -138,6 +138,10 @@ option(
+ )
+ option(PINOCCHIO_BUILD_MPFR_TESTING "Build MPFR dependent tests" OFF)
+ 
 +FIND_PACKAGE(assimp REQUIRED)
 +FIND_PACKAGE(console_bridge REQUIRED)
 +FIND_PACKAGE(tinyxml2 REQUIRED)
 +
- set(DOXYGEN_USE_MATHJAX YES)
-
- # ----------------------------------------------------
+ # --- OPTIONAL DEPENDENCIES -------------------------
+ option(
+     BUILD_WITH_URDF_SUPPORT
 diff --git a/src/CMakeLists.txt b/src/CMakeLists.txt
-index 500d657f..4ed70b82 100644
+index 2021c3e..7c9f4ab 100644
 --- a/src/CMakeLists.txt
 +++ b/src/CMakeLists.txt
-@@ -69,7 +69,7 @@ function(PINOCCHIO_TARGET target_name)
-   set(LIB_NAME "${target_name}")
-
-   # Manage different scope type if building an interface or shared library
--  set(LIBRARY_TYPE SHARED)
-+  set(LIBRARY_TYPE STATIC)
-   set(LIBRARY_PUBLIC_SCOPE PUBLIC)
-   if(ARGS_INTERFACE)
-     set(LIBRARY_TYPE INTERFACE)
+@@ -114,7 +114,7 @@ function(PINOCCHIO_TARGET target_name)
+     set(LIB_NAME "${target_name}")
+ 
+     # Manage different scope type if building an interface or shared library
+-    set(LIBRARY_TYPE SHARED)
++    set(LIBRARY_TYPE STATIC)
+     set(LIBRARY_PUBLIC_SCOPE PUBLIC)
+     if(ARGS_INTERFACE)
+         set(LIBRARY_TYPE INTERFACE)

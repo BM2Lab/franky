@@ -13,7 +13,7 @@ git clone --depth 1 --branch "${PINOCCHIO_VERSION}" --recurse-submodules --shall
 cd "${TMP_DIR}"
 git apply "${SCRIPT_DIR}/pinocchio.patch"
 # Workaround to prevent them from overriding CMP0167=OLD again
-sed -i 's/^[[:space:]]*cmake_policy(SET CMP0167 NEW)/# &/' CMakeLists.txt
+sed -i -e 's/^[[:space:]]*cmake_policy(SET CMP0167 NEW)/# &/' -e 's/^[[:space:]]*set(CMAKE_POLICY_DEFAULT_CMP0167 NEW)/# &/' CMakeLists.txt
 mkdir build
 cd build
 # CMP0167 has to be set to OLD to be compatible with outdated boost versions
@@ -26,6 +26,7 @@ cmake .. \
   -DCMAKE_INSTALL_LIBDIR=lib \
   -DBUILD_PYTHON_INTERFACE=OFF \
   -DBUILD_DOCUMENTATION=OFF \
+  -DBUILD_EXAMPLES=OFF \
   -DBUILD_TESTING=OFF
 make -j "$(nproc)"
 sudo make install || make install
